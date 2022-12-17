@@ -1,15 +1,29 @@
+import axios from "axios"
 
 
-export const categories = () => async (dispatch) => {
+
+// export const categories = () => async (dispatch) => {
+//     dispatch({ type: 'All_category_Request' })
+//     await axios.get('https://fakestoreapi.com/products/categories')
+//         .then(res => dispatch({ type: 'All_category_Success', category: res.data }))
+//         .catch(err => dispatch({ type: 'All_category_Fail', category: err.message }))
+// }
+
+export const category = (categories) => async (dispatch) => {
     dispatch({ type: 'All_category_Request' })
-    await fetch('https://fakestoreapi.com/products/categories')
+    await axios.get(`https://fakestoreapi.com/products/category/${categories}`)
         .then(res => dispatch({ type: 'All_category_Success', category: res.data }))
         .catch(err => dispatch({ type: 'All_category_Fail', category: err.message }))
 }
 
+export const categoryLimited = (titleCategory) => async (dispatch) => {
+    await axios.get(`https://fakestoreapi.com/products/category/${titleCategory}?limit=3`)
+    .then(res => dispatch({type:'titleCategory',title: res.data}))
+}
+
 export const allproduct = () => async (dispatch) => {
     dispatch({ type: 'All_product_Request' })
-    await fetch('https://fakestoreapi.com/products')
+    await axios.get('https://fakestoreapi.com/products')
         .then(res => dispatch({ type: 'All_product_Success', products: res.data }))
         .catch(err => dispatch({ type: 'All_product_Fail', products: err.message }))
 }

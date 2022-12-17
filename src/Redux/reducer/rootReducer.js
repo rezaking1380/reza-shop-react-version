@@ -72,7 +72,6 @@ export const Allproduct = (state= allproductinitialstate,action) => {
       case "All_product_Fail":
       return {
         ...state,
-        allproduct: action.products,
         status: 'error',
       };
         default:
@@ -82,6 +81,7 @@ export const Allproduct = (state= allproductinitialstate,action) => {
 
 const categoryinitialstate = {
     category: [],
+    title: [],
     status: 'idel',
 
 }
@@ -102,12 +102,17 @@ export const category = (state= categoryinitialstate,action) => {
       case "All_category_Fail":
       return {
         ...state,
-        category: action.category,
         status: 'error',
+      };
+      case 'titleCategory':
+      return {
+        ...state,
+        title: action.title
       };
         default:
             return state
     }
+    
 }
 
 const RegisterInitState = {

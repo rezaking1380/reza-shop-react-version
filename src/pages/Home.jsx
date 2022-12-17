@@ -1,4 +1,3 @@
-
 import Slider from '../components/Slider'
 import Jewelery from './categoties/Jewelery'
 import SliderCart from '../components/SliderCart'
@@ -6,15 +5,20 @@ import Menclothing from './categoties/Menclothing'
 import Womenclothing from "./categoties/Womenclothing";
 import Electronics from "./categoties/Electronics";
 import Footer from './Footer'
-
-
-import { useContext } from 'react';
-
+import { useDispatch , useSelector } from 'react-redux'
+import { useContext, useEffect } from 'react';
 import Mycontext from '../context'
 import Loading from '../components/Loading';
+import { allproduct } from '../Redux/reducer/Api';
+
 
 export default function Home() {
-  const products = useContext(Mycontext)
+  // const products = useContext(Mycontext)
+  const products = useSelector(state => state.Allproduct.allproduct)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(allproduct())
+  }, [dispatch]);
   
   return (
     <>

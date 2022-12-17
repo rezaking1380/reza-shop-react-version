@@ -1,29 +1,27 @@
 
 import {useEffect , useState} from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch , useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import Loading from '../components/Loading'
+import { category } from '../Redux/reducer/Api'
 
 
 
 
 export default function Category() {
-  const [Category, setCategory] = useState()
   const { categories } = useParams()
-  
+  const dispatch = useDispatch() 
+  const Category = useSelector(state => state.category.category)
+  const status = useSelector(state => state.category.status)
+console.log(Category)
 
-  const fetcher = async () => {
-  const response = await fetch(`https://fakestoreapi.com/products/category/${categories}`);
-  const data = await response.json();
-  setCategory(data)
-  }
 
   
   useEffect( () => {
-      fetcher()
-  }, [categories]);
+      dispatch(category(categories))
+  }, [categories, dispatch]);
 
-  const dispatch = useDispatch()
+
   const handelid = (e,id,img,title,price) => {
     e.preventDefault()
     dispatch({type:'inc'})
@@ -37,7 +35,7 @@ export default function Category() {
 
   return (
     <>
-    {!Category ? <Loading /> : 
+    {status === 'loading' ? <Loading /> : 
     <div className="bg-white">
            <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
              <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">{categories}</h2>
